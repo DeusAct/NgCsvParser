@@ -33,54 +33,40 @@ public class Main {
         List<List<String>> records = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(getInputFile(arguments)))) {
-//            int linesCount = 0;
-//            while (true) {
-//                final String textLine = bufferedReader.readLine();
-//                if (textLine == null)
-//                    break;
-//
-//                linesCount++;
+
 
             // TODO: line parsing logic...
             String diseases;
             while ((diseases = bufferedReader.readLine()) != null) {
-                    String[] values = diseases.split(",");
-                    records.add(Arrays.asList(values));
+                String[] values = diseases.split(",");
+                records.add(Arrays.asList(values));
             }
 
-            // count symptoms
+            // Count symptoms
 
             int lineNumber = 1;
-            int columnNumber = 1;
             int symptomsCounter = 0;
-            int selectedDisease = 1;
+            int selectedDisease = 10;
 
-            for(List<String> diseasesSymptomsList: records) {
-                for (String value: diseasesSymptomsList) {
-                    //System.out.println("Line " + lineNumber + " Column " + columnNumber + ": " + value);
-
-                    if(lineNumber == selectedDisease)
-                    {
+            for (List<String> diseasesSymptomsList : records) {
+                for (String value : diseasesSymptomsList) {
+                    if (lineNumber == selectedDisease) {
                         System.out.println("Symptoms for selected Disease: " + value);
                         symptomsCounter++;
                     }
-                    columnNumber++;
                 }
                 lineNumber++;
             }
-            System.out.println(symptomsCounter - 1); // - disease
 
+            int symptomsNumber = symptomsCounter - 1; // - disease
+            System.out.println(symptomsNumber);
 
-//                System.out.println("Input file contains " + linesCount + " lines.");
-            //System.out.println(records);
 
             //Count symptoms for each disease
 
-
-
-            //
         }
-    }
+
+        }
 
 }
 
