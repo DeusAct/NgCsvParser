@@ -44,12 +44,41 @@ public class Main {
             // TODO: line parsing logic...
             String diseases;
             while ((diseases = bufferedReader.readLine()) != null) {
-                String[] values = diseases.split(",");
-                records.add(Arrays.asList(values));
+                    String[] values = diseases.split(",");
+                    records.add(Arrays.asList(values));
             }
 
+            // count symptoms
+
+            int lineNumber = 1;
+            int columnNumber = 1;
+            int symptomsCounter = 0;
+            int selectedDisease = 1;
+
+            for(List<String> diseasesSymptomsList: records) {
+                for (String value: diseasesSymptomsList) {
+                    //System.out.println("Line " + lineNumber + " Column " + columnNumber + ": " + value);
+
+                    if(lineNumber == selectedDisease)
+                    {
+                        System.out.println("Symptoms for selected Disease: " + value);
+                        symptomsCounter++;
+                    }
+                    columnNumber++;
+                }
+                lineNumber++;
+            }
+            System.out.println(symptomsCounter - 1); // - disease
+
+
 //                System.out.println("Input file contains " + linesCount + " lines.");
-            System.out.println(diseases);
+            //System.out.println(records);
+
+            //Count symptoms for each disease
+
+
+
+            //
         }
     }
 
