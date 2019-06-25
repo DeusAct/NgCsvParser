@@ -5,10 +5,33 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
+
+    private String disease;
+    private String symptom;
+    private String symptom1;
+    private String symptom2;
+    private String symptom3;
+    private String symptom4;
+    private String symptom5;
+    private String symptom6;
+    private String symptom7;
+    private String symptom8;
+    private String symptom9;
+    private Main(String disease, String symptom, String symptom1, String symptom2, String symptom3, String symptom4, String symptom5, String symptom6, String symptom7, String symptom8, String symptom9) {
+        this.disease = disease;
+        this.symptom = symptom;
+        this.symptom1 = symptom1;
+        this.symptom2 = symptom2;
+        this.symptom3 = symptom3;
+        this.symptom4 = symptom4;
+        this.symptom5 = symptom5;
+        this.symptom6 = symptom6;
+        this.symptom7 = symptom7;
+        this.symptom8 = symptom8;
+        this.symptom9 = symptom9;
+    }
 
     private static File getInputFile(final String[] arguments) {
         if (arguments.length < 1)
@@ -25,48 +48,25 @@ public class Main {
         return inputFile;
     }
 
-    /**
-     * Starting point for our application.
-     */
     public static void main(final String[] arguments) throws IOException {
 
-        List<List<String>> records = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(getInputFile(arguments)))) {
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(getInputFile(arguments)))) {
+            ArrayList<Main> arrayList = new ArrayList<>();
 
-
-            // TODO: line parsing logic...
-            String diseases;
-            while ((diseases = bufferedReader.readLine()) != null) {
-                String[] values = diseases.split(",");
-                records.add(Arrays.asList(values));
-            }
-
-            // Count symptoms
-
-            int lineNumber = 1;
-            int symptomsCounter = 0;
-            int selectedDisease = 10;
-
-            for (List<String> diseasesSymptomsList : records) {
-                for (String value : diseasesSymptomsList) {
-                    if (lineNumber == selectedDisease) {
-                        System.out.println("Symptoms for selected Disease: " + value);
-                        symptomsCounter++;
-                    }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] arr = line.split(",");
+                for (String s : arr) {
+                    arrayList.add(new Main(s, s, s, s, s, s, s, s, s, s, s));
+                    System.out.println(s);
                 }
-                lineNumber++;
             }
-
-            int symptomsNumber = symptomsCounter - 1; // - disease
-            System.out.println(symptomsNumber);
-
-
-            //Count symptoms for each disease
-
         }
+    }
 
-        }
-
+    @Override
+    public String toString() {
+        return disease + symptom + symptom1 + symptom2 + symptom3 + symptom4 + symptom5 + symptom6 + symptom7 + symptom8 + symptom9;
+    }
 }
-
