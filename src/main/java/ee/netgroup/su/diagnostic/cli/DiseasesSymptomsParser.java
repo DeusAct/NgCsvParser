@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class DiseasesSymptomsParser {
 
@@ -50,21 +50,32 @@ public class DiseasesSymptomsParser {
             });
 
             // Top-3 values in HashMap
-            //TODO:Alphabetic sorting
-            System.out.println("TOP-3: ");
-            reverseSortedMap.entrySet()
-                    .stream()
+            System.out.println("TOP-3 diseases: ");
+            reverseSortedMap.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .limit(3)
                     .forEach(System.out::println);
 
             // Unique values in HashMap
+            System.out.println("\nUnique symptoms:");
+            Map<String, Long> symptomsPopularityMap = hashMap.values().stream()
+                    .flatMap(Collection::stream)
+                    .collect(groupingBy(symptom -> symptom, Collectors.counting()));
 
+            symptomsPopularityMap.entrySet().stream()
+                    .filter(entry -> entry.getValue() == 1)
+                    .forEach(entry -> System.out.println(entry.getKey()));
+
+            // Top-3 popular symptoms
+            System.out.println("\nTOP-3 symptoms:");
+            symptomsPopularityMap.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
+                    .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                    .limit(3)
+                    .forEach(System.out::println);
 
             return hashMap;
         }
-
     }
-
-
 }
