@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DiseasesSymptomsParser {
+
     private HashMap<String, List<String>> hashMap = new HashMap<>();
+    private HashMap<String, Integer> reverseSortedMap = new HashMap<>();
 
     private static File getInputFile(final String[] arguments) {
         if (arguments.length < 1) {
@@ -41,8 +44,26 @@ public class DiseasesSymptomsParser {
                 List<String> wordsInLine = Arrays.asList(line.split(","));
                 hashMap.put(wordsInLine.get(0), wordsInLine.subList(1, wordsInLine.size()));
             }
+            hashMap.forEach((key, value) -> {
+                reverseSortedMap.put(key, value.size());
+                //System.out.println(hashMapValues.getKey() + ": " + hashMapValues.getValue().size());
+            });
+
+            // Top-3 values in HashMap
+            //TODO:Alphabetic sorting
+            System.out.println("TOP-3: ");
+            reverseSortedMap.entrySet()
+                    .stream()
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                    .limit(3)
+                    .forEach(System.out::println);
+
+            // Unique values in HashMap
+
+
+            return hashMap;
         }
-        return hashMap;
+
     }
 
 
