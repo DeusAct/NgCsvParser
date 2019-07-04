@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class DiseasesSymptomsParser {
 
     private HashMap<String, List<String>> hashMap = new HashMap<>();
-    private HashMap<String, Integer> reverseSortedMap = new HashMap<>();
+    private HashMap<String, Integer> symptomsAmountPerDiseaseMap = new HashMap<>();
 
     private static File getInputFile(final String[] arguments) {
         if (arguments.length < 1) {
@@ -23,8 +23,7 @@ public class DiseasesSymptomsParser {
 
             if (!inputFile.exists()) {
                 throw new IllegalArgumentException("Specified input file does not exist: " + inputFile);
-            }
-            if (!inputFile.canRead()) {
+            } else if (!inputFile.canRead()) {
                 throw new IllegalArgumentException("Specified input file is not readable: " + inputFile);
             }
             return inputFile;
@@ -45,13 +44,12 @@ public class DiseasesSymptomsParser {
                 hashMap.put(wordsInLine.get(0), wordsInLine.subList(1, wordsInLine.size()));
             }
             hashMap.forEach((key, value) -> {
-                reverseSortedMap.put(key, value.size());
-                //System.out.println(hashMapValues.getKey() + ": " + hashMapValues.getValue().size());
+                symptomsAmountPerDiseaseMap.put(key, value.size());
             });
 
             // Top-3 values in HashMap
             System.out.println("TOP-3 diseases: ");
-            reverseSortedMap.entrySet().stream()
+            symptomsAmountPerDiseaseMap.entrySet().stream()
                     .sorted(Map.Entry.comparingByKey())
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .limit(3)
