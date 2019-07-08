@@ -1,0 +1,48 @@
+#+TITLE: Net Group 2019 a. suveülikooli prooviülesande baas projektid
+#+LANGUAGE: et
+* Maven
+  :PROPERTIES:
+  :ID:       70e0b784-5df4-480e-b520-36461cb9d299
+  :END:
+Näite rakendused baseeruvad Maven teegil.
+
+Maveni saab Ubuntus/Debianis paigaldada systeemi ühe käsuga:
+: sudo apt-get install maven
+
+Windowsis on see keerulisem, ning peab läbi tegema juhendi:
+https://downlinko.com/download-install-apache-maven-windows.html
+
+* Käsureal põhinev rakendus
+Käsurea rakenduse põhi on lihtne Maveni projekt. Käsurea argumendina
+etteantud fail parsitakse ridadeks ning väljastatakse leitud ridade
+arv. Rakenduse projekt asub kataloogis:
+
+: diagnostic cli
+
+** Käivitamine IntelliJ seest koos argumentidega
+Siin on hea õpetus:
+https://www.youtube.com/watch?v=kAAbdoq1to8
+
+** Käivitamine käsurealt
+Eeldus on, et [[id:70e0b784-5df4-480e-b520-36461cb9d299][Maven]] on paigaldatud süsteemis ja uus mvn käsk on
+saadaval.
+
+Olles käsureal projekti kataloogis, loome rakenduse paketi:
+: mvn clean package
+
+Käivitame paketeeritud rakenduse:
+: java -jar target/*.jar <csvFailiAsukoht>
+* Veebil põhinev rakendus
+Veebi rakenduse põhi on lihtne Maveni projekt. Sisaldab ühte veebi
+vormi mitmerealise teksti sisendiga. Sisestatud tekst parsitakse
+ridadeks ja näidatakse leitud ridade arv. Rakenduse projekt asub
+kataloogis:
+
+: diagnostic web
+
+** Käivitamine käsurealt
+Projekti kataloogis tuleb käivitada käsk:
+: mvn jetty:run
+
+Peale käivitamist näeb brauseriga rakendust aadressil:
+http://127.0.0.1:8080/
