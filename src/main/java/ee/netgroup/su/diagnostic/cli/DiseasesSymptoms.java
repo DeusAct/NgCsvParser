@@ -2,6 +2,7 @@ package ee.netgroup.su.diagnostic.cli;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,6 +57,23 @@ public class DiseasesSymptoms extends DiseasesSymptomsParser {
                         .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                         .limit(3)
                         .forEach(System.out::println);
+            }
+
+            System.out.println("Enter patient name: ");
+            String patientInput = inputScanner.nextLine();
+
+            System.out.println(hashMap.keySet());
+            System.out.println(hashMap.values());
+            System.out.println("Choose symptom: ");
+            String symptomInput = inputScanner.nextLine(); // Write Disease name
+
+            patientSymptom.put(patientInput, hashMap.get(symptomInput));
+            System.out.println(patientSymptom);
+
+            try (FileWriter file = new FileWriter("patient-diseases.json")) {
+                file.write(patientSymptom.toJSONString());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             return hashMap;

@@ -1,5 +1,7 @@
 package ee.netgroup.su.diagnostic.cli;
 
+import org.json.simple.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ public class DiseasesSymptomsParser {
     static HashMap<String, List<String>> hashMap = new HashMap<>();
     static HashMap<String, Integer> symptomsAmountPerDiseaseMap = new HashMap<>();
     static Scanner inputScanner = new Scanner(System.in);
+    static JSONObject patientSymptom = new JSONObject();
 
     static File getInputFile(final String[] arguments) {
         if (arguments.length < 1) {
@@ -31,6 +34,7 @@ public class DiseasesSymptomsParser {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        System.out.println(getDiseasesSymptomsPairs(arguments).entrySet());
+        //System.out.println(getDiseasesSymptomsPairs(arguments).entrySet());
+        getDiseasesSymptomsPairs(arguments);
     }
 }
